@@ -24,8 +24,9 @@ the `ManyUIDev.jl` superproject because it spans every submodule.
 
 ## 3. Theming & Styling
 
-- [ ] **Theme System**: there is none today — `ManyUI` has `Color`, `Style` and a CSS cascade, but no named palettes, no semantic tokens (`accent`, `warning`, `text-dim`), no registry.
-- [ ] **Dynamic Theming**: Support for hot-swapping themes (e.g., Light/Dark mode transitions) at runtime, with persistence via Preferences.jl.
+- [x] **Theme System**: semantic tokens (`accent`, `warning`, `text_dim`, …), named palettes, a registry, and `var(--name)` in CSS. See §10 for why tokens resolve at emission.
+- [x] **Dynamic Theming**: `set_theme!` hot-swaps at runtime. It needs a repaint, not a re-cascade — nothing in the tree holds a resolved colour.
+- [ ] **Theme persistence** via Preferences.jl, in `ManyUITUI` rather than `ManyUI`: the core widget library has no dependencies beyond the stdlib and should keep it that way.
 - [ ] **CSS Expansion**: Expand the pseudo-CSS parser to support more properties (e.g., `margin`, `z-index`, `opacity` for web).
 
 ## 4. Backend Expansion (The "Many" in ManyUI)
@@ -136,7 +137,8 @@ table of link IDs alongside the buffer is the likely design.
 - [x] `RichText`/`TextRun`, carried by `Label`, `Static`, `TabStrip`, `List`, `Table`, `DataTable`, `TreeView` and `Checkbox`, and projected by both the TUI and the web backends (10.1).
 - [x] Border **titles**: `border_title(w)`/`border_title_align(w)` are a seam any widget can override, painted by `paint_border_title!` right after the perimeter. `Container` ships `title`/`title_align`. A caption never touches a corner, and its runs fold over the border's style.
 - [ ] Border **footers**, and *interactive* titles — Kaimon's `Server Log (24) [wrap:off] [F]ollow:on` is a clickable control living in the border, which needs hit-testing on the border box rather than the content box.
-- [ ] Theme system with semantic tokens (§3). Kaimon calls `Tachikoma.theme()` 26 times and `tstyle(:token)` throughout.
+- [x] Theme system with semantic tokens (§3). `token(:warning)` is a `Color` of kind `TOKEN`, resolved at EMISSION rather than at parse or cascade time — so one stylesheet serves every theme, a `TextRun` naming a token is right under all of them, and `set_theme!` is a repaint rather than a re-cascade. Ten tokens, `:dark` and `:light` built in, `var(--name)` in CSS.
+- [ ] Theme PERSISTENCE. Deliberately not in `ManyUI`: it has no dependencies beyond the stdlib and Preferences.jl does not belong in the core widget library. It belongs with the `App`, in `ManyUITUI`.
 
 **P1 — the ergonomics this class of app needs**
 
