@@ -13,7 +13,7 @@ the `ManyUIDev.jl` superproject because it spans every submodule.
 ## 2. Advanced Widget Library
 
 - [ ] **Disabled State**: Native support for the `disabled` property on all interactive widgets (`Button`, `TextInput`, `Checkbox`, `Dropdown`) to prevent interactions and apply a dimmed style.
-- [x] **ProgressBar**: Support for indeterminate or determinate loading states.
+- [x] **ProgressBar**: determinate states, and an optional `label` drawn across it — a gauge.
 - [x] **Spinner** and **Slider**: shipped (`ManyUI/src/widgets/spinner.jl`, `slider.jl`).
 - [ ] **TextInput Enhancements**: Support for password mode (rendering `***`) and input filtering/masks (e.g., numeric-only).
 - [ ] **Tooltips**: Support for hover tooltips on widgets to display contextual help text.
@@ -145,7 +145,8 @@ table of link IDs alongside the buffer is the likely design.
 
 - [x] `Splitter` — draggable panes with mouse handles. The handle is a WIDGET, so hit-testing, painting and layout come free; the splitter follows the drag in the capture phase, which is pointer capture out of the propagation order rather than a new app mechanism. Geometry persistence is deferred with the theme's, to `ManyUITUI`.
 - [x] `Modal` — `Popup(...; modal = true)`: dimmed backdrop, focus trap via `focus_root`, no dismissal on an outside press, and focus restored on close. A `Dialog` convenience widget (title + message + button row) is still to come.
-- [ ] `Gauge`, `Sparkline`, `StatusBar`, `ProgressList` — all cheap once P0 lands.
+- [x] `Sparkline` and `StatusBar` as widgets; `Gauge` is `ProgressBar` with a `label`, since it would otherwise differ by exactly one field.
+- [ ] `ProgressList` — a list of named bars. Follows from `List` plus the labelled `ProgressBar`; not yet written.
 - [ ] CSS `:focus` pane rings. This is the clearest win: Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into a stylesheet rule.
 
 **P2 — rich content**
