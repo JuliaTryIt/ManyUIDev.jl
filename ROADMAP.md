@@ -18,7 +18,7 @@ the `ManyUIDev.jl` superproject because it spans every submodule.
 - [ ] **TextInput Enhancements**: Support for password mode (rendering `***`) and input filtering/masks (e.g., numeric-only).
 - [ ] **Tooltips**: Support for hover tooltips on widgets to display contextual help text.
 - [ ] **Modals & Dialogs**: `Popup` and `MinSizeOverlay` exist; a true `Modal` (dimmed backdrop, focus trap, button row) and the alert/confirm/file-picker helpers do not.
-- [ ] **Advanced Layouts**: `Tabs`/`TabStrip` shipped. Accordions and **Splitters (draggable panes)** remain.
+- [x] **Advanced Layouts**: `Tabs`/`TabStrip` and `Splitter` shipped. Accordions remain.
 - [ ] **Rich Text & Data**: `DataTable` sorts (stable, index-permuting). A Markdown rendering widget and column filtering remain.
 - [ ] **RawHTML Escape Hatch**: Allow injecting raw HTML/CSS strings when using the web backend (with graceful fallbacks in TUI) for custom web-specific tweaks.
 
@@ -142,7 +142,7 @@ table of link IDs alongside the buffer is the likely design.
 
 **P1 — the ergonomics this class of app needs**
 
-- [ ] `Splitter` — draggable panes with mouse handles and persisted geometry. 8 of Kaimon's 10 tabs depend on it.
+- [x] `Splitter` — draggable panes with mouse handles. The handle is a WIDGET, so hit-testing, painting and layout come free; the splitter follows the drag in the capture phase, which is pointer capture out of the propagation order rather than a new app mechanism. Geometry persistence is deferred with the theme's, to `ManyUITUI`.
 - [ ] `Modal` — dimmed backdrop, focus trap, button row. Kaimon has ~15 such flows.
 - [ ] `Gauge`, `Sparkline`, `StatusBar`, `ProgressList` — all cheap once P0 lands.
 - [ ] CSS `:focus` pane rings. This is the clearest win: Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into a stylesheet rule.
