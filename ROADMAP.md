@@ -42,7 +42,7 @@ The overarching goal of ManyUI is to write the UI once and project it anywhere.
 ## 5. Interaction & Events
 
 - [ ] **Mouse Support**: Improve drag-and-drop, scroll-wheel handling, and hover states across all backends.
-- [ ] **Focus Management**: `focus!`, `focus_next!`, `focus_prev!` and `focusable_widgets` exist. Focus *rings* driven by CSS pseudo-classes remain.
+- [x] **Focus Management**: `focus!`, `focus_next!`, `focus_prev!`, `focusable_widgets`, and focus rings driven by the `:focus`/`:focus-within` pseudo-classes.
 
 ## 6. Developer Experience (DX)
 
@@ -147,7 +147,7 @@ table of link IDs alongside the buffer is the likely design.
 - [x] `Modal` — `Popup(...; modal = true)`: dimmed backdrop, focus trap via `focus_root`, no dismissal on an outside press, and focus restored on close. A `Dialog` convenience widget (title + message + button row) is still to come.
 - [x] `Sparkline` and `StatusBar` as widgets; `Gauge` is `ProgressBar` with a `label`, since it would otherwise differ by exactly one field.
 - [ ] `ProgressList` — a list of named bars. Follows from `List` plus the labelled `ProgressBar`; not yet written.
-- [ ] CSS `:focus` pane rings. This is the clearest win: Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into a stylesheet rule.
+- [x] CSS `:focus` and `:focus-within` pane rings. Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into `.pane:focus-within { border: solid cyan; }`. The flags are maintained root-ward by `focus!`, so a focus change costs the depth of the tree rather than its size.
 
 **P2 — rich content**
 
