@@ -134,7 +134,8 @@ table of link IDs alongside the buffer is the likely design.
 **P0 — nothing renders without these**
 
 - [x] `RichText`/`TextRun`, carried by `Label`, `Static`, `TabStrip`, `List`, `Table`, `DataTable`, `TreeView` and `Checkbox`, and projected by both the TUI and the web backends (10.1).
-- [ ] Border **titles**: `paint_border!` (`ManyUITUI/src/paint.jl:190`) draws the perimeter only. Needed: left/right titles, and *interactive* titles — Kaimon's `Server Log (24) [wrap:off] [F]ollow:on` is a clickable control living in the border.
+- [x] Border **titles**: `border_title(w)`/`border_title_align(w)` are a seam any widget can override, painted by `paint_border_title!` right after the perimeter. `Container` ships `title`/`title_align`. A caption never touches a corner, and its runs fold over the border's style.
+- [ ] Border **footers**, and *interactive* titles — Kaimon's `Server Log (24) [wrap:off] [F]ollow:on` is a clickable control living in the border, which needs hit-testing on the border box rather than the content box.
 - [ ] Theme system with semantic tokens (§3). Kaimon calls `Tachikoma.theme()` 26 times and `tstyle(:token)` throughout.
 
 **P1 — the ergonomics this class of app needs**
