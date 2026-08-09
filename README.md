@@ -19,6 +19,9 @@ together.
 
 Every submodule tracks `main` and is referenced over SSH.
 
+[`ROADMAP.md`](ROADMAP.md) holds the ecosystem-wide roadmap, including the
+Kaimon TUI parity target that drives the current widget and theming priorities.
+
 ## Getting started
 
 ```sh
