@@ -102,7 +102,8 @@ with one CSS-resolved style, and `TabStrip.titles` is a `Vector{String}`. Even
 
 - [x] `RichText`/`TextRun` in `ManyUI`, with `text_width`, `truncate_width` and `wrap_width` over them. Named `TextRun`, not `Span`: `ManyUITUI` already exports a `Span` (a run of changed cells in a diff patch) and two exported `Span`s would collide for anyone doing `using ManyUI, ManyUITUI`.
 - [x] `Label` and `Static` carry a `RichText`; `write_richtext!` paints one in `ManyUITUI`.
-- [ ] Thread it through `TabStrip.titles`, `List` and `Table` cell formatting.
+- [x] `TabStrip.titles` are `RichText`, and `List`'s `format` / `Table`'s `cell` accept `TextLike`. All six row widgets got it from a single `RichText` overload of `_tc_slice!`, the painter they all funnel through.
+- [x] `ManyUIWeb` projects runs as `<span>`s, so a rich list or table reaches the browser styled rather than flattened.
 
 The wrap invariant is the load-bearing part and is worth restating: wrapping
 runs the *plain* text through the existing string wrap and reattaches styling,
@@ -132,7 +133,7 @@ table of link IDs alongside the buffer is the likely design.
 
 **P0 — nothing renders without these**
 
-- [x] `RichText`/`TextRun`, and `Label`/`Static` carrying one (10.1). Remaining: `TabStrip`, `List`, `Table`.
+- [x] `RichText`/`TextRun`, carried by `Label`, `Static`, `TabStrip`, `List`, `Table`, `DataTable`, `TreeView` and `Checkbox`, and projected by both the TUI and the web backends (10.1).
 - [ ] Border **titles**: `paint_border!` (`ManyUITUI/src/paint.jl:190`) draws the perimeter only. Needed: left/right titles, and *interactive* titles — Kaimon's `Server Log (24) [wrap:off] [F]ollow:on` is a clickable control living in the border.
 - [ ] Theme system with semantic tokens (§3). Kaimon calls `Tachikoma.theme()` 26 times and `tstyle(:token)` throughout.
 
