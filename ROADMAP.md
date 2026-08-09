@@ -181,4 +181,13 @@ substantially *shorter* than the original.
 
 ### Suggested first step
 
-- [ ] Prototype the **Server tab alone** in ManyUI — outer frame, two blocks, a following log pane, a status bar. It is the simplest screen and it exercises every P0 item end to end.
+- [x] Prototype the **Server tab alone** in ManyUI — `ManyUIDemos/demos/monitor.jl`, pinned by a test in `ManyUIWeb/test/examples_tests.jl`. It renders, and building it found a CSS bug (`border: solid var(--accent)` did not parse) that no unit test had.
+
+### What the rebuild could not reach
+
+Found by building the screen, not by reading a list — which is the argument for
+building screens:
+
+- [ ] A **second caption on the same edge**. `border_title` has one slot with one alignment; Kaimon's outer frame has a title at the left and a mark at the right of the same top edge.
+- [ ] A **border footer**, so a status line can fuse into the bottom edge instead of costing a content row. Already listed above; the rebuild is what makes the cost concrete on an 80x24 terminal.
+- [ ] **Tail-following** on the row widgets. Nothing keeps a `List` pinned to its last row as rows arrive; an application does it by hand with `scroll_to!`. Worth a `follow` flag.
