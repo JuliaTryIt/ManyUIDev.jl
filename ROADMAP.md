@@ -18,7 +18,8 @@ the `ManyUIDev.jl` superproject because it spans every submodule.
 - [ ] **TextInput Enhancements**: Support for password mode (rendering `***`) and input filtering/masks (e.g., numeric-only).
 - [ ] **Tooltips**: Support for hover tooltips on widgets to display contextual help text.
 - [x] **Modals**: `Popup(...; modal = true)` dims, traps focus and refuses an outside dismissal.
-- [ ] **Dialogs**: the alert/confirm/file-picker helpers over it, and a `Dialog` widget with a button row.
+- [x] **Dialogs**: `Dialog` and `dialog_size`.
+- [ ] **Dialog helpers**: one-call `alert`/`confirm`/file-picker over them.
 - [x] **Advanced Layouts**: `Tabs`/`TabStrip` and `Splitter` shipped. Accordions remain.
 - [ ] **Rich Text & Data**: `DataTable` sorts (stable, index-permuting). A Markdown rendering widget and column filtering remain.
 - [ ] **RawHTML Escape Hatch**: Allow injecting raw HTML/CSS strings when using the web backend (with graceful fallbacks in TUI) for custom web-specific tweaks.
@@ -144,9 +145,10 @@ table of link IDs alongside the buffer is the likely design.
 **P1 — the ergonomics this class of app needs**
 
 - [x] `Splitter` — draggable panes with mouse handles. The handle is a WIDGET, so hit-testing, painting and layout come free; the splitter follows the drag in the capture phase, which is pointer capture out of the propagation order rather than a new app mechanism. Geometry persistence is deferred with the theme's, to `ManyUITUI`.
-- [x] `Modal` — `Popup(...; modal = true)`: dimmed backdrop, focus trap via `focus_root`, no dismissal on an outside press, and focus restored on close. A `Dialog` convenience widget (title + message + button row) is still to come.
+- [x] `Modal` — `Popup(...; modal = true)`: dimmed backdrop, focus trap via `focus_root`, no dismissal on an outside press, and focus restored on close.
+- [x] `Dialog`/`dialog_size` — a captioned `Container` with a message and a button row, plus the size the popup layer needs declared. Not a widget type: every part of it already existed.
 - [x] `Sparkline` and `StatusBar` as widgets; `Gauge` is `ProgressBar` with a `label`, since it would otherwise differ by exactly one field.
-- [ ] `ProgressList` — a list of named bars. Follows from `List` plus the labelled `ProgressBar`; not yet written.
+- [x] `ProgressList`/`ProgressItem` — a column of captioned bars, rows held as data like `List`.
 - [x] CSS `:focus` and `:focus-within` pane rings. Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into `.pane:focus-within { border: solid cyan; }`. The flags are maintained root-ward by `focus!`, so a focus change costs the depth of the tree rather than its size.
 
 **P2 — rich content**
