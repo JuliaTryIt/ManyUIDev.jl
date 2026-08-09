@@ -21,7 +21,8 @@ the `ManyUIDev.jl` superproject because it spans every submodule.
 - [x] **Dialogs**: `Dialog` and `dialog_size`.
 - [ ] **Dialog helpers**: one-call `alert`/`confirm`/file-picker over them.
 - [x] **Advanced Layouts**: `Tabs`/`TabStrip` and `Splitter` shipped. Accordions remain.
-- [ ] **Rich Text & Data**: `DataTable` sorts (stable, index-permuting). A Markdown rendering widget and column filtering remain.
+- [x] **Rich Text & Data**: `DataTable` sorts (stable, index-permuting), and `MarkdownPane` renders Markdown.
+- [ ] Column filtering in the table widgets.
 - [ ] **RawHTML Escape Hatch**: Allow injecting raw HTML/CSS strings when using the web backend (with graceful fallbacks in TUI) for custom web-specific tweaks.
 
 ## 3. Theming & Styling
@@ -153,7 +154,7 @@ table of link IDs alongside the buffer is the likely design.
 
 **P2 — rich content**
 
-- [ ] `MarkdownPane` (the `Markdown` stdlib supplies the AST).
+- [x] `MarkdownPane` — the `Markdown` stdlib parses, this projects the AST to a `Vector{RichText}`. Headings, emphasis, code, links, lists, quotes and rules; styles named as theme tokens; the line cache keyed on the wrap width.
 - [ ] `CodeEditor` with syntax highlighting (JuliaSyntax.jl, or port Tachikoma's tokenizers).
 
 **P3 — terminal-only, needs a decision**
