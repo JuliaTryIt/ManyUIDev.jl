@@ -95,12 +95,20 @@ browser through `ManyUIWeb`, which Tachikoma cannot do.
 
 ### The three structural blockers
 
-**10.1 — Inline styled text (`Span`).** Kaimon builds **181** `Span`s: text runs
-carrying their own style *inside* a single line. `ManyUI.Label` holds a
-`Reactive{String}` with one CSS-resolved style, and `TabStrip.titles` is a
-`Vector{String}`. Even "**1** Server" with the digit in yellow is inexpressible.
+**10.1 — Inline styled text.** Kaimon builds **181** `Span`s: text runs carrying
+their own style *inside* a single line. `ManyUI.Label` held a `Reactive{String}`
+with one CSS-resolved style, and `TabStrip.titles` is a `Vector{String}`. Even
+"**1** Server" with the digit in yellow was inexpressible.
 
-- [ ] Introduce a `Span`/`StyledLine` primitive and thread it through `Label`, `List`, `Table`, `TabStrip` and `ManyUITUI/src/paint.jl`.
+- [x] `RichText`/`TextRun` in `ManyUI`, with `text_width`, `truncate_width` and `wrap_width` over them. Named `TextRun`, not `Span`: `ManyUITUI` already exports a `Span` (a run of changed cells in a diff patch) and two exported `Span`s would collide for anyone doing `using ManyUI, ManyUITUI`.
+- [x] `Label` and `Static` carry a `RichText`; `write_richtext!` paints one in `ManyUITUI`.
+- [ ] Thread it through `TabStrip.titles`, `List` and `Table` cell formatting.
+
+The wrap invariant is the load-bearing part and is worth restating: wrapping
+runs the *plain* text through the existing string wrap and reattaches styling,
+so `plain.(wrap_width(rt, w)) == wrap_width(plain(rt), w)` holds by
+construction. Colouring a paragraph cannot reflow it, and there is only one
+wrap implementation to keep correct.
 
 **10.2 — Full-screen buffer access.** `_paint_node!` (`ManyUITUI/src/paint.jl:134`)
 calls `render!(w, view(buf, inter))`: every widget receives a view **clipped to
@@ -124,7 +132,7 @@ table of link IDs alongside the buffer is the likely design.
 
 **P0 — nothing renders without these**
 
-- [ ] `Span`/`StyledLine` (10.1)
+- [x] `RichText`/`TextRun`, and `Label`/`Static` carrying one (10.1). Remaining: `TabStrip`, `List`, `Table`.
 - [ ] Border **titles**: `paint_border!` (`ManyUITUI/src/paint.jl:190`) draws the perimeter only. Needed: left/right titles, and *interactive* titles — Kaimon's `Server Log (24) [wrap:off] [F]ollow:on` is a clickable control living in the border.
 - [ ] Theme system with semantic tokens (§3). Kaimon calls `Tachikoma.theme()` 26 times and `tstyle(:token)` throughout.
 
