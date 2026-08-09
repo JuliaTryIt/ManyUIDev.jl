@@ -152,10 +152,10 @@ table of link IDs alongside the buffer is the likely design.
 - [x] `ProgressList`/`ProgressItem` — a column of captioned bars, rows held as data like `List`.
 - [x] CSS `:focus` and `:focus-within` pane rings. Kaimon's **63** hand-written `_pane_border`/`_pane_title` call sites collapse into `.pane:focus-within { border: solid cyan; }`. The flags are maintained root-ward by `focus!`, so a focus change costs the depth of the tree rather than its size.
 
-**P2 — rich content**
+**P2 — rich content** — done
 
 - [x] `MarkdownPane` — the `Markdown` stdlib parses, this projects the AST to a `Vector{RichText}`. Headings, emphasis, code, links, lists, quotes and rules; styles named as theme tokens; the line cache keyed on the wrap width.
-- [ ] `CodeEditor` with syntax highlighting (JuliaSyntax.jl, or port Tachikoma's tokenizers).
+- [x] `CodeEditor` with syntax highlighting — a `TextArea` with a `highlight` field, using the `JuliaSyntaxHighlighting` stdlib so ManyUI owns no tokeniser. Whole-document, cached against the edit version.
 
 **P3 — terminal-only, needs a decision**
 
