@@ -1,28 +1,28 @@
 [submodule "ManyUI"]
 	path = ManyUI
-	url = git@github.com:s-celles/ManyUI.jl.git
+	url = git@github.com:juliatryit/ManyUI.jl.git
 	branch = main
 [submodule "ManyUICLI"]
 	path = ManyUICLI
-	url = git@github.com:s-celles/ManyUICLI.jl.git
+	url = git@github.com:juliatryit/ManyUICLI.jl.git
 	branch = main
 [submodule "ManyUITUI"]
 	path = ManyUITUI
-	url = git@github.com:s-celles/ManyUITUI.jl.git
+	url = git@github.com:juliatryit/ManyUITUI.jl.git
 	branch = main
 [submodule "ManyUIWeb"]
 	path = ManyUIWeb
-	url = git@github.com:s-celles/ManyUIWeb.jl.git
+	url = git@github.com:juliatryit/ManyUIWeb.jl.git
 	branch = main
 [submodule "ManyUICImGui"]
 	path = ManyUICImGui
-	url = git@github.com:s-celles/ManyUICImGui.jl.git
+	url = git@github.com:juliatryit/ManyUICImGui.jl.git
 	branch = main
 [submodule "ManyUIDemos"]
 	path = ManyUIDemos
-	url = git@github.com:s-celles/ManyUIDemos.jl.git
+	url = git@github.com:juliatryit/ManyUIDemos.jl.git
 	branch = main
 [submodule "ManyUIDoc"]
 	path = ManyUIDoc
-	url = git@github.com:s-celles/ManyUIDoc.jl.git
+	url = git@github.com:juliatryit/ManyUIDoc.jl.git
 	branch = main
