@@ -9,13 +9,13 @@ together.
 
 | Submodule       | Repository                                                              | Role                                          |
 | --------------- | ----------------------------------------------------------------------- | --------------------------------------------- |
-| `ManyUI`        | [s-celles/ManyUI.jl](https://github.com/juliatryit/ManyUI.jl)               | Core widget tree and backend-agnostic API      |
-| `ManyUICLI`     | [s-celles/ManyUICLI.jl](https://github.com/juliatryit/ManyUICLI.jl)         | CLI projection of a `ManyUI.Widget` tree       |
-| `ManyUITUI`     | [s-celles/ManyUITUI.jl](https://github.com/juliatryit/ManyUITUI.jl)         | Text user interface backend                    |
-| `ManyUIWeb`     | [s-celles/ManyUIWeb.jl](https://github.com/juliatryit/ManyUIWeb.jl)         | Web bridge (web terminal and web native)       |
-| `ManyUICImGui`  | [s-celles/ManyUICImGui.jl](https://github.com/juliatryit/ManyUICImGui.jl)   | CImGui backend                                 |
-| `ManyUIDemos`   | [s-celles/ManyUIDemos.jl](https://github.com/juliatryit/ManyUIDemos.jl)     | Centralized demonstration hub                  |
-| `ManyUIDoc`     | [s-celles/ManyUIDoc.jl](https://github.com/juliatryit/ManyUIDoc.jl)         | Ecosystem documentation                        |
+| `ManyUI`        | [juliatryit/ManyUI.jl](https://github.com/juliatryit/ManyUI.jl)               | Core widget tree and backend-agnostic API      |
+| `ManyUICLI`     | [juliatryit/ManyUICLI.jl](https://github.com/juliatryit/ManyUICLI.jl)         | CLI projection of a `ManyUI.Widget` tree       |
+| `ManyUITUI`     | [juliatryit/ManyUITUI.jl](https://github.com/juliatryit/ManyUITUI.jl)         | Text user interface backend                    |
+| `ManyUIWeb`     | [juliatryit/ManyUIWeb.jl](https://github.com/juliatryit/ManyUIWeb.jl)         | Web bridge (web terminal and web native)       |
+| `ManyUICImGui`  | [juliatryit/ManyUICImGui.jl](https://github.com/juliatryit/ManyUICImGui.jl)   | CImGui backend                                 |
+| `ManyUIDemos`   | [juliatryit/ManyUIDemos.jl](https://github.com/juliatryit/ManyUIDemos.jl)     | Centralized demonstration hub                  |
+| `ManyUIDoc`     | [juliatryit/ManyUIDoc.jl](https://github.com/juliatryit/ManyUIDoc.jl)         | Ecosystem documentation                        |
 
 Every submodule tracks `main` and is referenced over SSH.
 
