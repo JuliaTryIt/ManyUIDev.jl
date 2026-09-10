@@ -155,24 +155,30 @@ silent, because the element is emitted, just empty.
 
 - [x] `TabStrip` — captions in `titles`. Fixed.
 - [x] `StatusBar` — content in `left`/`center`/`right`. Fixed.
-- [ ] **`ErrorBoundary`** — the wrapped widget is in `child`, and `node.children`
+- [x] **`ErrorBoundary`** — the wrapped widget is in `child`, and `node.children`
   is empty. **The most serious of the seven**: wrapping anything in a boundary
   makes it vanish entirely in the browser, which is the opposite of what a
   boundary is for.
-- [ ] `Static` — `text`, the `RichText` §10.1 gave it.
-- [ ] `MarkdownPane` — `source`/`ast`/`lines`. Listed as done under P2, and it is
-  — in the terminal only.
-- [ ] `ProgressList` — `items`.
-- [ ] `Sparkline` — `values`.
+- [x] `Static` — `text`, the `RichText` §10.1 gave it.
+- [x] `MarkdownPane` — `source`/`ast`/`lines`. Was listed as done under P2, and
+  was — in the terminal only.
+- [x] `ProgressList` — `items`.
+- [x] `Sparkline` — `values`.
 
 Not affected, checked rather than assumed: `Container`, `Tabs`, `Scrollpane`,
 `Splitter` and `Form` all mount real children. `Scrollbar` is chrome a browser
 supplies itself, and `DropDownList` is built inside `DropDown`, whose own branch
 already emits the options.
 
-The generic branch could grow a `content_children(w)` seam that a field-content
-widget overrides, so the next such widget is visible by default rather than by
-remembering to add a branch.
+Fixed structurally, not case by case. `ManyUI.content_children(w)` is now a seam
+naming a widget's content — its mounted children by default — which the generic
+branch walks instead of `node.children`, so any future WRAPPER is visible without
+the backend knowing its type. A traversal cannot reach content that is DATA, so
+those four got renderings that reuse ManyUI's own logic.
+
+The ratchet is what keeps it fixed: a test walks every widget type ManyUI defines
+and requires each to either show its content or appear in an exemption list with
+a stated reason. A new widget now fails the build rather than shipping blank.
 
 **P1 — the ergonomics this class of app needs**
 
