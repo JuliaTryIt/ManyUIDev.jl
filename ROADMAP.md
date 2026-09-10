@@ -143,6 +143,37 @@ table of link IDs alongside the buffer is the likely design.
 - [x] Theme system with semantic tokens (§3). `token(:warning)` is a `Color` of kind `TOKEN`, resolved at EMISSION rather than at parse or cascade time — so one stylesheet serves every theme, a `TextRun` naming a token is right under all of them, and `set_theme!` is a repaint rather than a re-cascade. Ten tokens, `:dark` and `:light` built in, `var(--name)` in CSS.
 - [x] Theme AND splitter-geometry persistence, in `ManyUITUI` with the `App` — `save_ui_prefs!`/`restore_ui_prefs!` over Preferences.jl. `ManyUI` keeps its stdlib-only dependency set. A splitter needs an explicit `id` to be persisted at all, since `gensym` differs every run; unnamed ones are skipped and counted rather than written as dead keys.
 
+**P0 — field-content widgets are invisible to WebNative**
+
+*Audited 2026-09-10, empirically: each widget built with a marker in it and its
+`to_html` searched for the marker.*
+
+`ManyUIWeb`'s `to_html` walks `node.children`. A widget that keeps its content in
+**fields** instead therefore renders as an empty box unless it has its own
+branch. This is one defect with seven instances, not seven defects — and it is
+silent, because the element is emitted, just empty.
+
+- [x] `TabStrip` — captions in `titles`. Fixed.
+- [x] `StatusBar` — content in `left`/`center`/`right`. Fixed.
+- [ ] **`ErrorBoundary`** — the wrapped widget is in `child`, and `node.children`
+  is empty. **The most serious of the seven**: wrapping anything in a boundary
+  makes it vanish entirely in the browser, which is the opposite of what a
+  boundary is for.
+- [ ] `Static` — `text`, the `RichText` §10.1 gave it.
+- [ ] `MarkdownPane` — `source`/`ast`/`lines`. Listed as done under P2, and it is
+  — in the terminal only.
+- [ ] `ProgressList` — `items`.
+- [ ] `Sparkline` — `values`.
+
+Not affected, checked rather than assumed: `Container`, `Tabs`, `Scrollpane`,
+`Splitter` and `Form` all mount real children. `Scrollbar` is chrome a browser
+supplies itself, and `DropDownList` is built inside `DropDown`, whose own branch
+already emits the options.
+
+The generic branch could grow a `content_children(w)` seam that a field-content
+widget overrides, so the next such widget is visible by default rather than by
+remembering to add a branch.
+
 **P1 — the ergonomics this class of app needs**
 
 - [x] `Splitter` — draggable panes with mouse handles. The handle is a WIDGET, so hit-testing, painting and layout come free; the splitter follows the drag in the capture phase, which is pointer capture out of the propagation order rather than a new app mechanism. Geometry persistence is deferred with the theme's, to `ManyUITUI`.
