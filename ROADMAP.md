@@ -79,6 +79,41 @@ To fully integrate `Tachikoma.jl` natively (especially for `ManyUIWeb`):
 
 ---
 
+## 11. First Consumer: the KaimonSlate admin panel
+
+*Added 2026-09-10.* §10 argued that a concrete application is a sharper question
+than a feature list. There is now one, in production rather than in a demo:
+`KaimonSlateAdmin` renders Kaimon's dashboard as native web inside a Slate
+notebook, through `ManyUIWeb.fragment_html` and a ⌘K palette command.
+
+Five gaps were found by building it, none by reading:
+
+- [x] A `TabStrip` reached the browser as an empty box — captions live in
+  `titles`, not children.
+- [x] A `StatusBar` did the same, and the audit that followed found five more
+  widgets in the same shape (§10, P0).
+- [x] No way to embed ONE widget: `generate_document` makes a page,
+  `to_html` makes styleless markup. `fragment_html` now returns both, scoped.
+- [x] An embedded fragment took the host page's background and font, and ManyUI's
+  palette is chosen against a dark page — so it had almost no contrast.
+- [x] A fragment's tabs were inert (no `dispatch_event` outside the document
+  client) and every panel showed at once, because `[hidden]` is `display: none`
+  at the lowest specificity and every container sets `display: flex`.
+
+What the consumer still wants from the framework:
+
+- [ ] A **panel or chrome hook**. There is none, so the admin panel is launched
+  from a fixed pill of its own making. Anything spliced into Slate's toolbar
+  would depend on internal class names.
+- [ ] The **remaining §10 items** that this screen would use: a scrollable pane of
+  `RichText` lines (the log panes are `List` with `SelectMode.NONE`), border
+  footers, and tail-following.
+
+The panel is read-only today, and two of its limits are Kaimon's rather than
+ManyUI's: no configuration tool in its MCP surface, and answers in prose rather
+than structured data — which is why the panes are styled text where `DataTable`
+would serve better.
+
 ## 10. Reference Target: Kaimon TUI Parity
 
 *Added 2026-08-09. Gap analysis performed against `Kaimon/src/tui/` (~17 500 LOC,
